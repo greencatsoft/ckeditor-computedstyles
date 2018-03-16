@@ -14,27 +14,27 @@
  */
 CKEDITOR.style.addCustomHandler( {
 	type: 'computed',
-    setup: function( definition ) {
-    	this.definition = definition;
+	setup: function( definition ) {
+		this.definition = definition;
 
 		var styleDef = Object.assign( {}, definition );
 
 		delete styleDef.type;
 
-    	this.style = new CKEDITOR.style( styleDef );
+		this.style = new CKEDITOR.style( styleDef );
 
 		if (definition.negation) {
-    		this.negatedStyle = new CKEDITOR.style( definition.negation );
+			this.negatedStyle = new CKEDITOR.style( definition.negation );
 		}
 
-    	this.checkApplicable = this.style.checkApplicable;
-    	this.checkElementMatch = this.style.checkElementMatch;
-    	this.checkElementRemovable = this.style.checkElementRemovable;
+		this.checkApplicable = this.style.checkApplicable;
+		this.checkElementMatch = this.style.checkElementMatch;
+		this.checkElementRemovable = this.style.checkElementRemovable;
     },
-    apply: function( editor ) {
-    	if (this.negatedStyle) {
+	apply: function( editor ) {
+		if (this.negatedStyle) {
 			this.negatedStyle.remove( editor );
-    	}
+		}
 
 		this.style.apply( editor );
     },
@@ -42,13 +42,13 @@ CKEDITOR.style.addCustomHandler( {
 		if (this.style.checkActive( editor.elementPath(), editor )) {
 			this.style.remove( editor );
 		} else if (this.negatedStyle) {
-	       	this.negatedStyle.apply( editor );
+			this.negatedStyle.apply( editor );
 		}
     },
-    checkActive: function( elementPath, editor ) {
-    	if (this.style.checkActive( elementPath, editor )) {
-    		return true;
-    	}
+	checkActive: function( elementPath, editor ) {
+		if (this.style.checkActive( elementPath, editor )) {
+			return true;
+		}
 
 		if (!elementPath || !elementPath.lastElement) {
 			return false;
