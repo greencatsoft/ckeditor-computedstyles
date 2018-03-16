@@ -59,6 +59,9 @@ CKEDITOR.style.addCustomHandler( {
 
 		return this.definition.checkActive( style );
     },
+    toAllowedContentRules: function( editor ) {
+		return [this.style, this.negatedStyle];
+    }
 } );
 
 CKEDITOR.plugins.add( 'computedstyles', {
