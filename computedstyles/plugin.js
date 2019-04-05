@@ -36,12 +36,16 @@ CKEDITOR.style.addCustomHandler( {
 			this.negatedStyle.remove( editor );
 		}
 
-		this.style.apply( editor );
+		if (!this.checkActive( editor.elementPath(), editor )) {
+			this.style.apply( editor );
+		}
     },
     remove: function( editor ) {
 		if (this.style.checkActive( editor.elementPath(), editor )) {
 			this.style.remove( editor );
-		} else if (this.negatedStyle) {
+		}
+
+		if (this.negatedStyle && this.checkActive( editor.elementPath(), editor )) {
 			this.negatedStyle.apply( editor );
 		}
     },
@@ -151,8 +155,11 @@ CKEDITOR.config.computedStyles_italic = {
 };
 
 CKEDITOR.config.computedStyles_underline = {
-	element: 'u', 
-	overrides: 'ins',
+	element: 'span',
+	attributes: {
+		style: 'text-decoration: underline'
+	},
+	overrides: [ 'u', 'ins' ],
 	checkActive: function( style ) {
 		var value = style['text-decoration'];
 		return value && value.indexOf( 'underline' ) != -1;
