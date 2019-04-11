@@ -155,11 +155,14 @@ CKEDITOR.config.computedStyles_italic = {
 };
 
 CKEDITOR.config.computedStyles_underline = {
-	element: 'span',
-	attributes: {
-		style: 'text-decoration: underline'
+	element: 'u',
+	overrides: 'ins',
+	negation: {
+		element: 'span',
+		attributes: {
+			style: 'text-decoration: underline'
+		}
 	},
-	overrides: [ 'u', 'ins' ],
 	checkActive: function( style ) {
 		var value = style['text-decoration'];
 		return value && value.indexOf( 'underline' ) != -1;
